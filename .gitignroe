@@ -1,0 +1,16 @@
+#python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.env
+
+# Node
+node_modules/
+dist/
+.env.local
+.env
+
+# System
+.DS_Store
+*.pdf
