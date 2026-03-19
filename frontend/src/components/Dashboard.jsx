@@ -280,7 +280,7 @@ export default function Dashboard({ transactions }) {
           <div className="p-6 border-b border-white/5 bg-slate-900/40 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-slate-100 flex items-center">
               <ListFilter className="w-5 h-5 mr-2 text-indigo-400" />
-              Recent Transactions
+              Latest 10 Transactions
             </h2>
           </div>
           <div className="overflow-x-auto flex-1 h-[400px]">
@@ -294,7 +294,7 @@ export default function Dashboard({ transactions }) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {sortedTransactions.slice().reverse().slice(0, 100).map((t, i) => (
+                {sortedTransactions.slice().reverse().slice(0, 10).map((t, i) => (
                   <tr key={i} className="hover:bg-slate-800/40 transition-colors group">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-300">{t.date}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-xs">
