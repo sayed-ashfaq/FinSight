@@ -3,8 +3,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import statements
 from dotenv import load_dotenv
+from models.database import engine, Base
+from utils.logger import log
 
 load_dotenv()
+
+# Pre-populate SQLite tables if they do not exist
+try:
+    log.info("Booting FinSight API & initializing database schemas...")
+    Base.metadata.create_all(bind=engine)
+    log.info("Database schemas confirmed.")
+except Exception as e:
+    log.error(f"Failed to generate DB Schema: {str(e)}")
 
 app = FastAPI(title="FinSight API")
 

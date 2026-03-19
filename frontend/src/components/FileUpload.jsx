@@ -55,8 +55,20 @@ export default function FileUpload({ onSuccess }) {
     }
     
     try {
+      let token = 'local.mock.token';
+      const { supabase } = await import('../lib/supabase');
+      if (supabase) {
+         const { data } = await supabase.auth.getSession();
+         if (data?.session?.access_token) {
+           token = data.session.access_token;
+         }
+      }
+
       const response = await axios.post('http://localhost:8000/api/statements/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
       });
       
       onSuccess(response.data);
