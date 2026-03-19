@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { LayoutDashboard, FileUp, Wallet } from 'lucide-react';
+import { LayoutDashboard, FileUp, Wallet, Calendar } from 'lucide-react';
 import FileUpload from './components/FileUpload';
 import Dashboard from './components/Dashboard';
+import MonthlyView from './components/MonthlyView';
 
 function App() {
   const [transactions, setTransactions] = useState(null);
@@ -40,7 +41,15 @@ function App() {
               className={`flex items-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${!transactions ? 'opacity-40 cursor-not-allowed hidden md:flex' : activeTab === 'dashboard' ? 'bg-white/10 text-white shadow-inner' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
             >
               <LayoutDashboard className="w-4 h-4 mr-2" />
-              Dashboard
+              Overview
+            </button>
+            <button 
+              onClick={() => { if (transactions) setActiveTab('monthly'); }}
+              disabled={!transactions}
+              className={`flex items-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${!transactions ? 'opacity-40 cursor-not-allowed hidden md:flex' : activeTab === 'monthly' ? 'bg-white/10 text-white shadow-inner' : 'text-slate-400 hover:text-white hover:bg-white/5'}`}
+            >
+              <Calendar className="w-4 h-4 mr-2" />
+              Monthly
             </button>
             
             {!transactions && (
@@ -78,6 +87,10 @@ function App() {
           
           {activeTab === 'dashboard' && transactions && (
             <Dashboard transactions={transactions} />
+          )}
+          
+          {activeTab === 'monthly' && transactions && (
+            <MonthlyView transactions={transactions} />
           )}
         </div>
       </main>
